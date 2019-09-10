@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Viewport Metatag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Link Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- Link to custom CSS overrides -->
+    <link rel="stylesheet" href="../Psychic-Game/assets/css/style.css" />
+    <!-- Link Google JQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Marvel vs. Capcom - Guess That Character</title>
+  </head>
+
+  <body>
+    <!-- Create the game headliner. Include name of the game, images, how-to-play directions -->
+    <div class="container">
+      <div class="jumbotron">
+        <div class="row">
+          <!-- Logo image -->
+          <img
+            id="logo-image"
+            class="rounded mx-auto d-block"
+            src="../Psychic-Game/assets/images/MvC-logo.png"
+            alt="Marvel vs. Capcom Logo"
+          />
+        </div>
+
+        <br />
+
+        <div id="press-start-row" class="row">
+          <!-- Press Enter to start image -->
+          <img
+            id="press-start-img"
+            class="rounded mx-auto d-block"
+            src="../Psychic-Game/assets/images/Press-Enter-Static.gif"
+            alt="Press Enter"
+          />
+        </div>
+
+        <br />
+
+        <div class="row justify-content-md-center">
+          <div id="game-content-container centered" class="container">
+            <!-- Create in-game interface-->
+            <div class="col">
+              <div class="row justify-content-md-center">
+                <!-- Create diplay column for: player image, health-->
+                <div class="col-md-4">
+                  <div id="player-stat-container" class="container">
+                    <img
+                      id="player1-img"
+                      src="../Psychic-Game/assets/images/Player-1.jpg"
+                      alt="Player 1"
+                    />
+                    <div class="progress">
+                      <div
+                        id="player-health-bar"
+                        class="progress-bar bg-danger"
+                        style="width: 100%"
+                        aria-valuenow="100"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Create display column for: letter guessing (current-word, letters-already-guessed) and any other tracking -->
+                <div class="col-md-4">
+                  <div class="container">
+                    <h3 id="current-character-title">Current Character:</h3>
+                    <p id="current-character-tiles"></p>
+                  </div>
+                  
+                  <br>
+                  
+                  <div class="container">
+                    <h3 id="letters-already-guess-title">
+                      Letters Already Guessed:
+                    </h3>
+                    <p id="letters-already-guessed-array"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Link to game logic Javascript -->
+  </body>
+</html>
