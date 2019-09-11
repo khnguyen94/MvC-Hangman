@@ -1,5 +1,9 @@
 body {
-    background: url("../images/MvC-background.jpg");
+    background-image: url("../images/MvC-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-position: center;
 }
 
 #logo-img {
@@ -49,4 +53,8 @@ body {
 #guesses-container {
     border: 2px solid black;
     height: 99%;
+}
+
+#letters-already-guess-array {
+
 }

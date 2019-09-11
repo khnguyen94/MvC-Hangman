@@ -113,11 +113,28 @@ document.onkeyup = function(event) {
     if (lettersGuessed.includes(userGuess)) {
       alert("You have already guessed the letter " + userGuess);
     }
-    // Else, replace the underscore at that index position with the letter
+
+    // Else, create a function that takes in two arguments (userGuess & chosenCharacterUnderscore) and loops through the entire to replace the underscore at that index position with the letter
     else if (userGuessIndex !== -1) {
-      chosenCharacterUnderscore[userGuessIndex] = userGuess;
+      let setAll = function(userGuess, chosenCharacterUnderscore) {
+          let letterIndices = []
+        for (var i = 0; i < chosenCharacterUnderscore.length; i++) {
+            if ((chosenCharacterUnderscore[i] === userGuess)) {
+                letterIndices.push(i);
+            }
+          chosenCharacterUnderscore[userGuessIndex] = userGuess;
+        }
+        return setAll;
+      };
+
+      setAll(userGuess, chosenCharacterUnderscore);
+
+      console.log(chosenCharacterUnderscore);
+
       // Add that letter to the letters guessed array
       lettersGuessed.push(userGuess);
+ 
+      //
 
       console.log(userGuess + " is included"); // check if user guess is a match
     }
@@ -153,8 +170,6 @@ document.onkeyup = function(event) {
   playerHealthBar.style.width = userHealth + "%";
   currentCharacterTiles.innerHTML = chosenCharacterUnderscore.join(" ");
   lettersAlreadyGuessedArray.innerHTML = lettersGuessed.join(", ");
-
-
 
   console.log(lettersGuessed); // check that user guesses are being logged to lettersGuessed array
   console.log(chosenCharacterLetters.indexOf(userGuess)); // print out the index of the user guess in the character letters array
