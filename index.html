@@ -63,6 +63,18 @@
           <div id="game-content-container centered" class="container">
             <!-- Create in-game interface-->
             <div class="col">
+              <!-- Create win/loss display -->
+              <div class="row justify-content-md-center">
+                <div class="col-md-4">
+                  <h3 id="wins-text">Wins:</h3>
+                </div>
+                <div class="col-md-4">
+                  <h3 id="losses-text">Losses:</h3>
+                </div>
+              </div>
+
+              <br />
+
               <div class="row justify-content-md-center">
                 <!-- Create diplay column for: player image, health-->
                 <div class="col-md-4">
@@ -91,8 +103,8 @@
                 <div class="col-md-8">
                   <div class="col-md-12 h-50">
                     <div id="character-container" class="container">
-                      <h3 id="current-character-title">Current Character: </h3>
-                      <h3 id="current-character-tiles"></h3>
+                      <h3 id="current-character-title">Current Character:</h3>
+                      <h5 id="current-character-tiles"></h5>
                     </div>
                   </div>
 
@@ -101,7 +113,7 @@
                       <h3 id="letters-already-guess-title">
                         Letters Already Guessed:
                       </h3>
-                      <h4 id="letters-already-guessed-array"></h4>
+                      <h5 id="letters-already-guessed-array"></h5>
                     </div>
                   </div>
                 </div>

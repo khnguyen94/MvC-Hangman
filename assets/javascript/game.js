@@ -38,14 +38,20 @@ const mvcCharacters = [
 
 // Create stat tracking variables
 let wins = 0;
+let losses = 0;
 let currentCharacter = []; // Should this be an empty array or empty string???
 let userHealth = 100;
 let healthIncrement = 10;
 let lettersGuessed = [];
 
-// Pick a random character from the characters array
-let chosenCharacter =
-  mvcCharacters[Math.floor(Math.random() * mvcCharacters.length)];
+// Create a function that picks a random character from the characters array and assigns it to global variable called chosenCharacter
+let chosenCharacter;
+
+let pickRandomCharacter = function(mvcCharacters) {
+  chosenCharacter = mvcCharacters[Math.floor(Math.random() * mvcCharacters.length)];
+}
+
+pickRandomCharacter(mvcCharacters);
 
 // Create a new variable that makes the chosen character's name all lowercase
 let chosenCharacterLowercase = chosenCharacter.toLocaleLowerCase();
@@ -76,6 +82,9 @@ let generateUnderscores = function(chosenCharacterLetters) {
 };
 
 generateUnderscores(chosenCharacterLetters);
+
+// Create a restart function that picks a new character and resets all relevant variables
+let newRound = function() {};
 
 // Create holder variables for press-enter-img, player-img, player-lives, wins, current-word, remaining-lives (guesses), letters-guessed
 let directionsRow = document.getElementById("press-start-row");
@@ -114,29 +123,56 @@ document.onkeyup = function(event) {
       alert("You have already guessed the letter " + userGuess);
     }
 
-    // Else, create a function that takes in two arguments (userGuess & chosenCharacterUnderscore) and loops through the entire to replace the underscore at that index position with the letter
+    // Else if, create a function that takes in three arguments (userGuess & chosenCharacterLetters & chosenCharacterUnderscore) and loops through the entire to replace the underscore at that index position with the letter
     else if (userGuessIndex !== -1) {
-      let setAll = function(userGuess, chosenCharacterUnderscore) {
-          let letterIndices = []
-        for (var i = 0; i < chosenCharacterUnderscore.length; i++) {
-            if ((chosenCharacterUnderscore[i] === userGuess)) {
-                letterIndices.push(i);
-            }
-          chosenCharacterUnderscore[userGuessIndex] = userGuess;
+      let setAll = function(
+        userGuess,
+        chosenCharacterLetters,
+        chosenCharacterUnderscore
+      ) {
+        for (var i = 0; i < chosenCharacterLetters.length; i++) {
+          if (userGuess === chosenCharacterLetters[i]) {
+            chosenCharacterUnderscore[i] = userGuess;
+          }
         }
-        return setAll;
+        return chosenCharacterUnderscore;
       };
 
-      setAll(userGuess, chosenCharacterUnderscore);
+      setAll(userGuess, chosenCharacterLetters, chosenCharacterUnderscore);
 
-      console.log(chosenCharacterUnderscore);
+      console.log(chosenCharacterUnderscore); // Log the current underscore array into console
 
       // Add that letter to the letters guessed array
       lettersGuessed.push(userGuess);
- 
-      //
 
       console.log(userGuess + " is included"); // check if user guess is a match
+    }
+
+    // Else if, create a function check when user has completely guessed and the name matches the parsed chosen character's name
+    let checkMatchingName = function(
+      chosenCharacterLetters,
+      chosenCharacterUnderscore
+    ) {
+      for (var i = 0; i < chosenCharacterLetters.length; i++) {
+        if (chosenCharacterLetters[i] !== chosenCharacterUnderscore[i]) {
+          return false;
+        }
+        return true;
+      }
+    };
+
+    checkMatchingName(chosenCharacterLetters, chosenCharacterUnderscore);
+
+    console.log(checkMatchingName(chosenCharacterLetters, chosenCharacterUnderscore));
+    console.log("Wins: " + wins);
+
+    // Else if, create a function that takes in the return statement of checkMatchingName function and executes only when true to pick a new character and reset all relevant variables
+    let resetGame = function(checkMatchingName) {
+      if (checkMatchingName == true) {
+        // pick new character
+        pickRandomCharacter(mvcCharacters);
+        // reset all relevant variables
+      }
     }
   }
 
@@ -157,6 +193,7 @@ document.onkeyup = function(event) {
 
     if (userHealth === 0) {
       alert("K.O.");
+      losses++;
     }
   }
 
@@ -168,7 +205,10 @@ document.onkeyup = function(event) {
 
   // Update displays in html to reflect current scores and stats
   playerHealthBar.style.width = userHealth + "%";
-  currentCharacterTiles.innerHTML = chosenCharacterUnderscore.join(" ");
+  playerHealthBar.textContent = userHealth + "/100";
+  currentCharacterTiles.innerHTML = chosenCharacterUnderscore.join(
+    "&nbsp; &nbsp;"
+  );
   lettersAlreadyGuessedArray.innerHTML = lettersGuessed.join(", ");
 
   console.log(lettersGuessed); // check that user guesses are being logged to lettersGuessed array
