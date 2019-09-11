@@ -14,8 +14,6 @@
     />
     <!-- Link to custom CSS overrides -->
     <link rel="stylesheet" href="../Psychic-Game/assets/css/style.css" />
-    <!-- Link Google JQuery CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>Marvel vs. Capcom - Guess That Character</title>
   </head>
 
@@ -40,7 +38,7 @@
           <img
             id="press-start-img"
             class="rounded mx-auto d-block"
-            src="../Psychic-Game/assets/images/Press-Enter-Static.gif"
+            src="../Psychic-Game/assets/images/Press-Any-Key.gif"
             alt="Press Enter"
           />
         </div>
@@ -78,9 +76,18 @@
                     <h3 id="current-character-title">Current Character:</h3>
                     <p id="current-character-tiles"></p>
                   </div>
-                  
-                  <br>
-                  
+
+                  <br />
+
+                  <div class="container">
+                    <h3 id="last-letter-guessed-title">
+                      Last Letter Guessed:
+                    </h3>
+                    <p id="last-letter-guessed-text"></p>
+                  </div>
+
+                  <br />
+
                   <div class="container">
                     <h3 id="letters-already-guess-title">
                       Letters Already Guessed:
@@ -94,6 +101,12 @@
         </div>
       </div>
     </div>
+
+    <!-- Link Google JQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- Link to game logic Javascript -->
+    <script type="text/javascript" src="../Psychic-Game/assets/javascript/game.js"></script>
+
   </body>
 </html>
