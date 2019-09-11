@@ -14,7 +14,7 @@
     />
     <!-- Link to custom CSS overrides -->
     <link rel="stylesheet" href="../Psychic-Game/assets/css/style.css" />
-    <title>Marvel vs. Capcom - Guess That Character</title>
+    <title>Marvel vs. Capcom - Guess That Fighter</title>
   </head>
 
   <body>
@@ -24,7 +24,7 @@
         <div class="row">
           <!-- Logo image -->
           <img
-            id="logo-image"
+            id="logo-img"
             class="rounded mx-auto d-block"
             src="../Psychic-Game/assets/images/MvC-logo.png"
             alt="Marvel vs. Capcom Logo"
@@ -33,6 +33,20 @@
 
         <br />
 
+        <div class="row">
+          <!-- "Guess that Fighter" banner -->
+          <img
+            id="banner-img"
+            class="rounded mx-auto d-block"
+            src="../Psychic-Game/assets/images/Guess-that-fighter-banner.png"
+            alt="banner"
+          />
+        </div>
+      </div>
+
+      <br />
+
+      <div class="jumbotron">
         <div id="press-start-row" class="row">
           <!-- Press Enter to start image -->
           <img
@@ -45,19 +59,22 @@
 
         <br />
 
-        <div class="row justify-content-md-center">
+        <div id="game-content-row" class="row justify-content-md-center">
           <div id="game-content-container centered" class="container">
             <!-- Create in-game interface-->
             <div class="col">
               <div class="row justify-content-md-center">
                 <!-- Create diplay column for: player image, health-->
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div id="player-stat-container" class="container">
                     <img
                       id="player1-img"
                       src="../Psychic-Game/assets/images/Player-1.jpg"
                       alt="Player 1"
                     />
+
+                    <br />
+
                     <div class="progress">
                       <div
                         id="player-health-bar"
@@ -71,28 +88,21 @@
                   </div>
                 </div>
                 <!-- Create display column for: letter guessing (current-word, letters-already-guessed) and any other tracking -->
-                <div class="col-md-4">
-                  <div class="container">
-                    <h3 id="current-character-title">Current Character:</h3>
-                    <p id="current-character-tiles"></p>
+                <div class="col-md-8">
+                  <div class="col-md-12 h-50">
+                    <div id="character-container" class="container">
+                      <h3 id="current-character-title">Current Character: </h3>
+                      <h3 id="current-character-tiles"></h3>
+                    </div>
                   </div>
 
-                  <br />
-
-                  <div class="container">
-                    <h3 id="last-letter-guessed-title">
-                      Last Letter Guessed:
-                    </h3>
-                    <p id="last-letter-guessed-text"></p>
-                  </div>
-
-                  <br />
-
-                  <div class="container">
-                    <h3 id="letters-already-guess-title">
-                      Letters Already Guessed:
-                    </h3>
-                    <p id="letters-already-guessed-array"></p>
+                  <div class="col-md-12 h-50">
+                    <div id="guesses-container" class="container">
+                      <h3 id="letters-already-guess-title">
+                        Letters Already Guessed:
+                      </h3>
+                      <h3 id="letters-already-guessed-array"></h3>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -102,11 +112,13 @@
       </div>
     </div>
 
+    <!-- Link to game logic Javascript -->
+    <script
+      type="text/javascript"
+      src="../Psychic-Game/assets/javascript/game.js"
+    ></script>
+
     <!-- Link Google JQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- Link to game logic Javascript -->
-    <script type="text/javascript" src="../Psychic-Game/assets/javascript/game.js"></script>
-
   </body>
 </html>

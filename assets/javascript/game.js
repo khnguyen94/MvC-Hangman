@@ -25,7 +25,7 @@ const mvcCharacters = [
   "Frank West",
   "Jedah",
   "Mike Haggar",
-  "Moster Hunter",
+  "Monster Hunter",
   "Morrigan",
   "Nathan Spencer",
   "Nemesis",
@@ -39,20 +39,51 @@ const mvcCharacters = [
 // Create stat tracking variables
 let wins = 0;
 let currentCharacter = []; // Should this be an empty array or empty string???
-let remainingLives = 5;
+let userHealth = 100;
+let healthIncrement = 10;
 let lettersGuessed = [];
 
+// Pick a random character from the characters array
+let chosenCharacter =
+  mvcCharacters[Math.floor(Math.random() * mvcCharacters.length)];
+
+// Create a new variable that makes the chosen character's name all lowercase
+let chosenCharacterLowercase = chosenCharacter.toLocaleLowerCase();
+
+console.log(chosenCharacter); // check that a random character was chosen
+console.log(chosenCharacterLowercase); // check that that random character's name is all lowercase
+
+// Create empty array to hold all the individual letters of the chosen character's name
+let chosenCharacterLetters = [];
+
+// Split up the chosen character's name into its component letters
+chosenCharacterLetters = chosenCharacterLowercase.split("");
+
+console.log(chosenCharacterLetters); // check that the random character's name was parse into individual letters
+console.log(chosenCharacterLowercase.length); // check length of the chosen character's name
+console.log(chosenCharacterLetters.length); // check length of the array of letters of chosen character's name
+// if these two numbers match, you are good
+
+// Create an empty array that will hold the number of underscores equivalent to the number of letters in the array of letters in the character's name
+let chosenCharacterUnderscore = [];
+
+// Create a function takes the number of letters in the array of letters in the character's name and create an equivalent number of underscores
+let generateUnderscores = function(chosenCharacterLetters) {
+  for (let i = 0; i < chosenCharacterLetters.length; i++) {
+    chosenCharacterUnderscore.push("_");
+  }
+  return generateUnderscores;
+};
+
+generateUnderscores(chosenCharacterLetters);
+
 // Create holder variables for press-enter-img, player-img, player-lives, wins, current-word, remaining-lives (guesses), letters-guessed
-let pressEnterRow = document.getElementById("press-start-row");
+let directionsRow = document.getElementById("press-start-row");
 let pressEnterGIF = document.getElementById("press-start-img");
 let playerImg = document.getElementById("player1-img");
 let playerHealthBar = document.getElementById("player-health-bar");
 let currentCharacterTitle = document.getElementById("current-character-title");
 let currentCharacterTiles = document.getElementById("current-character-tiles");
-let lastLetterGuessedTitle = document.getElementById(
-  "last-letter-guessed-title"
-);
-let lastLetterGuessedText = document.getElementById("last-letter-guessed-text");
 let lettersAlreadyGuessedTitle = document.getElementById(
   "letters-already-guess-title"
 );
@@ -68,38 +99,6 @@ document.onkeyup = function(event) {
   console.log(userGuess); // log user's first letter guess
   console.log(typeof userGuess); // log variable type of the user's guess
 
-  // Pick a random character from the characters array
-  let chosenCharacter =
-    mvcCharacters[Math.floor(Math.random() * mvcCharacters.length)];
-
-  console.log(chosenCharacter); // check that a random character was chosen
-
-  // Create empty array to hold all the individual letters of the chosen character's name
-  let chosenCharacterLetters = [];
-
-  // Split up the chosen character's name into its component letters
-  chosenCharacterLetters = chosenCharacter.split("");
-
-  console.log(chosenCharacterLetters); // check that the random character's name was parse into individual letters
-  console.log(chosenCharacter.length); // check length of the chosen character's name
-  console.log(chosenCharacterLetters.length); // check length of the array of letters of chosen character's name
-  // if these two numbers match, you are good
-
-  // Create an empty array that will hold the number of underscores equivalent to the number of letters in the array of letters in the character's name
-  let chosenCharacterNumLetters = [];
-
-  // Create a function takes the number of letters in the array of letters in the character's name and create an equivalent number of underscores
-  let generateUnderscores = function(chosenCharacterLetters) {
-    for (let i = 0; i < chosenCharacterLetters.length; i++) {
-      chosenCharacterNumLetters.push("_");
-    }
-    return generateUnderscores;
-  };
-
-  generateUnderscores(chosenCharacterLetters);
-
-  console.log(chosenCharacterNumLetters);
-
   // GAME LOGIC
   // On any key press, initiate game logic
   // Create match, non-match, already-guessed conditions
@@ -107,25 +106,58 @@ document.onkeyup = function(event) {
 
   // If it is a match:
   if (chosenCharacterLetters.includes(userGuess)) {
-    // 1) Print that matched letter to the position it exists in the character's name
+    // Find the index of the match user guess value in the array
+    let userGuessIndex = chosenCharacterLetters.indexOf(userGuess);
 
-    // 2) Add that letter to the letters guessed array
-    lettersGuessed.push(userGuess);
+    // Create a for-loop that will check that (if match) that it is not already in the list of letters already guessed
+    if (lettersGuessed.includes(userGuess)) {
+      alert("You have already guessed the letter " + userGuess);
+    }
+    // Else, replace the underscore at that index position with the letter
+    else if (userGuessIndex !== -1) {
+      chosenCharacterUnderscore[userGuessIndex] = userGuess;
+      // Add that letter to the letters guessed array
+      lettersGuessed.push(userGuess);
 
-    //
-    console.log(userGuess + " is included"); // check that user guess is a match
+      console.log(userGuess + " is included"); // check if user guess is a match
+    }
   }
+
   // Else if the user guess has already been guessed:
   else if (lettersGuessed.includes(userGuess)) {
-    // 1) return an error
+    // 1) Return an error
     alert("You have already guessed the letter " + userGuess);
   }
+
   // If there is no match:
   else {
     // 1) Add that letter to the letters guessed array
     lettersGuessed.push(userGuess);
+    // 2) Decrease the user's health by 10%
+    userHealth -= healthIncrement;
+
     console.log(userGuess + " is not included"); // check that user guess is not a match
+
+    if (userHealth === 0) {
+      alert("K.O.");
+    }
   }
 
+  // Hide directions
+  $("#press-start-row").hide();
+
+  // Show game content
+  $("#game-content-row").show();
+
+  // Update displays in html to reflect current scores and stats
+  playerHealthBar.style.width = userHealth + "%";
+  currentCharacterTiles.innerHTML = chosenCharacterUnderscore.join(" ");
+  lettersAlreadyGuessedArray.innerHTML = lettersGuessed.join(", ");
+
+
+
   console.log(lettersGuessed); // check that user guesses are being logged to lettersGuessed array
+  console.log(chosenCharacterLetters.indexOf(userGuess)); // print out the index of the user guess in the character letters array
+  console.log(chosenCharacterUnderscore); // check that there are same number of underscores as length of character name
+  console.log("Health: " + userHealth);
 };
