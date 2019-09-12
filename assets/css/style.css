@@ -37,9 +37,6 @@ body {
     background: grey;
 }
 
-#tracking-container {
-
-}
 
 #character-container {
     border: 2px solid black;
@@ -48,11 +45,16 @@ body {
 
 #current-character-tiles {
     text-align: center;
+    width: 95%;
 }
 
 #guesses-container {
     border: 2px solid black;
     height: 99%;
+}
+
+#letters-already-guessed-array {
+    overflow-wrap: normal;
 }
 
 #letters-already-guess-array {
