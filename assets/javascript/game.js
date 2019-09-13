@@ -85,6 +85,23 @@ let generateUnderscores = function(chosenCharacterLetters) {
 
 generateUnderscores(chosenCharacterLetters);
 
+// Else if, create a function that takes in the return statement of checkMatchingName function and executes only when true: pick a new character and reset all relevant variables (health and letters guess array)
+let resetGame = function() {
+  // hard restart code
+  userHealth = 100;
+  lettersGuessed = [];
+  chosenCharacterUnderscore = [];
+  console.log("chosen character is: " + chosenCharacter);
+  pickRandomCharacter(mvcCharacters);
+
+  chosenCharacterLowercase = chosenCharacter.toLocaleLowerCase();
+
+  chosenCharacterLetters = chosenCharacterLowercase.split("");
+
+  generateUnderscores(chosenCharacterLetters);
+
+};
+
 // Create holder variables for press-enter-img, player-img, player-lives, wins, current-word, remaining-lives (guesses), letters-guessed
 let winsText = document.getElementById("wins-text");
 let livesText = document.getElementById("lives-text");
@@ -126,7 +143,6 @@ document.onkeyup = function(event) {
 
     // Else if, create a function that takes in three arguments (userGuess & chosenCharacterLetters & chosenCharacterUnderscore) and loops through the entire to replace the underscore at that index position with the letter
     else if (userGuessIndex !== -1) {
-      let concatCharName;
       let setAll = function(
         userGuess,
         chosenCharacterLetters,
@@ -146,22 +162,9 @@ document.onkeyup = function(event) {
       console.log(chosenCharacterUnderscore); // Log the current underscore array into console
 
       // Add that letter to the letters guessed array
-      lettersGuessed.push(userGuess);
 
       console.log(userGuess + " is included"); // check if user guess is a match
     }
-
-    // Else if, create a function that takes in the return statement of checkMatchingName function and executes only when true: pick a new character and reset all relevant variables (health and letters guess array)
-    let resetGame = function() {
-      if (true) {
-        // hard restart code
-        pickRandomCharacter(mvcCharacters);
-        userHealth = 100;
-        lettersGuessed = [];
-
-        console.log(chosenCharacter); // check to see
-      }
-    };
 
     // Else if, create a function check when user has completely guessed and the name matches the parsed chosen character's name
     let checkMatchingName = function(
@@ -174,10 +177,9 @@ document.onkeyup = function(event) {
         }
       }
       wins++;
+      resetGame();
     };
 
-    resetGame();
-    
     checkMatchingName(chosenCharacterLetters, chosenCharacterUnderscore);
 
     console.log(
@@ -204,6 +206,9 @@ document.onkeyup = function(event) {
     if (userHealth === 0) {
       lives--;
       alert("K.O.");
+      userHealth = 100;
+      lettersGuessed = [];
+      resetGame();
     } else if (userHealth === 0 && lives === 0) {
       alert("Game Over!!");
       resetGame();
@@ -228,11 +233,14 @@ document.onkeyup = function(event) {
   livesText.textContent = lives;
   winsText.textContent = wins;
 
+
   // Developer console logs
   console.log(lettersGuessed); // check that user guesses are being logged to lettersGuessed array
   console.log(chosenCharacterUnderscore); // check that there are same number of underscores as length of character name
   console.log("Health: " + userHealth); // check the current health of the player after every guess
-  console.log(gluedCharacterName);
+  console.log(chosenCharacter);
+  console.log(chosenCharacterLowercase);
+  console.log(chosenCharacterUnderscore);
 };
 
 // Create a restart function that picks a new character and resets all relevant variables
